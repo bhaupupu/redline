@@ -57,7 +57,7 @@ export const LowerBento: React.FC<LowerBentoProps> = ({
 
         <div>
           <div className="gp-title heading-sub">
-            FORMULA 1® AUSTRALIAN GRAND PRIX<br />
+            UPCOMING FORMULA 1® RACE<br />
             <span style={{ color: 'var(--audi-red)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
               <Activity size={14} /> LIVE TELEMETRY ACTIVE
             </span>
@@ -80,34 +80,7 @@ export const LowerBento: React.FC<LowerBentoProps> = ({
         </div>
       </div>
 
-      {/* Tile 2: Real-time Telemetry System */}
-      <div 
-        className="bento-card latest-card"
-        style={{ cursor: 'pointer' }}
-        onClick={onOpenTelemetryModal}
-      >
-        <div>
-          <span className="latest-tag">THE LATEST TELEMETRY</span>
-          <h3 className="heading-extended latest-title">
-            Discover real-time AI driver radio analysis & pit wall tactics
-          </h3>
-        </div>
-
-        <div className="latest-footer">
-          <span className="latest-link">LAUNCH REDLINE SYSTEM</span>
-          <button 
-            className="btn-circle-red"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (onOpenTelemetryModal) onOpenTelemetryModal();
-            }}
-          >
-            <ArrowUpRight size={20} />
-          </button>
-        </div>
-      </div>
-
-      {/* Tile 3: Stint Records Vault */}
+      {/* Tile 2: Stint Records Vault */}
       <div 
         className="bento-card tile-card"
         style={{ backgroundImage: `url('/assets/ontrack.png')`, minHeight: '280px', cursor: 'pointer' }}

@@ -14,7 +14,7 @@ export const InfoSection: React.FC = () => {
 
       <div className="narrative-text-box">
         <p>
-          REDLINE processes live driver team radio communications for the <strong>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX</strong>, delivering high-frequency acoustic DSP stress analysis and speech classification directly to the pit wall.
+          REDLINE processes live driver team radio communications across <strong>FORMULA 1® GRAND PRIX RACES</strong>, delivering high-frequency acoustic DSP stress analysis and speech classification directly to the pit wall.
         </p>
         <p>
           Engineered for high-intensity race environments, REDLINE correlates acoustic stress markers, volume acceleration, and phrase keyword urgency to empower race engineers with automated tactical recommendations from lights out to the final lap.
