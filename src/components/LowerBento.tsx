@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Activity, Dna } from 'lucide-react';
+import { ArrowRight, Activity, Dna, Database } from 'lucide-react';
 
 interface LowerBentoProps {
   onOpenTelemetryModal?: () => void;

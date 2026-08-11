@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Preloader } from './components/Preloader';
 import { HeroBento } from './components/HeroBento';
 import { InfoSection } from './components/InfoSection';
@@ -17,6 +17,14 @@ export function App() {
   const [activePage, setActivePage] = useState<'landing' | 'telemetry' | 'records' | 'how-it-works' | 'racedna'>('landing');
   const [selectedRecordForTelemetry, setSelectedRecordForTelemetry] = useState<AnalysisResult | null>(null);
   const [isFading, setIsFading] = useState(false);
+
+  useEffect(() => {
+    // Safety fallback to guarantee site content displays even if preloader is skipped
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handlePreloaderComplete = () => {
     setIsLoaded(true);
