@@ -131,48 +131,64 @@ function ensureRichSegments(
   }
 
   const cleanName = fileName.replace(/\.[^/.]+$/, '').replace(/_/g, ' ');
-  const isHighStress = stressScore > 65;
+  const isHighStress = stressScore > 60;
 
-  const phrase1Text = `Radio check ${driverObj.name}. Pit wall telemetry acquired for "${cleanName}". Checking sector 1 split.`;
-  const phrase2Text = isHighStress
-    ? `Front tire grip stepping out into Turn 4! Requesting engine mode override!`
-    : `Target stint pace achieved on "${cleanName}". Tire temperatures stable.`;
-  const phrase3Text = isHighStress
-    ? `Copy ${driverObj.name}. Switch to Strat 3 override, box box this lap.`
-    : `Maintaining stint pace target. Clear gap behind is four point two seconds.`;
+  // Generate dynamic multi-turn STT dialogue spanning 100% of custom audio duration
+  const numTurns = Math.max(3, Math.min(10, Math.ceil(duration / 4.5)));
+  const turns: TranscriptSegment[] = [];
 
-  return [
-    {
-      id: '1',
-      startTime: 0,
-      endTime: Math.round(duration * 0.3),
-      speaker: engName,
-      text: phrase1Text,
-      phraseStressScore: 30,
-      urgencyLevel: 'LOW',
-      keywordsDetected: ['radio check', 'telemetry', 'sector 1'],
-    },
-    {
-      id: '2',
-      startTime: Math.round(duration * 0.3),
-      endTime: Math.round(duration * 0.7),
-      speaker: drvName,
-      text: phrase2Text,
-      phraseStressScore: isHighStress ? Math.max(78, stressScore) : 42,
-      urgencyLevel: isHighStress ? 'CRITICAL' : 'MEDIUM',
-      keywordsDetected: isHighStress ? ['front grip', 'override', 'turn 4'] : ['target pace', 'temperatures stable'],
-    },
-    {
-      id: '3',
-      startTime: Math.round(duration * 0.7),
-      endTime: Math.round(duration),
-      speaker: engName,
-      text: phrase3Text,
-      phraseStressScore: 38,
-      urgencyLevel: isHighStress ? 'HIGH' : 'LOW',
-      keywordsDetected: isHighStress ? ['copy', 'strat 3 override', 'box box'] : ['pace target', 'gap behind'],
-    },
+  const engineerPhrases = [
+    `Radio check ${driverObj.name}. Pit wall acoustic STT telemetry active for "${cleanName}". Sector 1 split confirmed.`,
+    `Copy ${driverObj.name}. Switch to Strat 3 override, box box this lap for fresh rubber.`,
+    `Understood. Target mode 2 enabled. Clear gap ahead is four point two seconds.`,
+    `Tire degradation levels nominal. Maintain current stint delta through Sector 3.`,
+    `Radio copy ${driverObj.name}. Confirming brake bias adjustment for turn 11 entry.`
   ];
+
+  const driverPhrases = [
+    isHighStress
+      ? `Front tire grip stepping out into Turn 4 on "${cleanName}"! Requesting engine mode override!`
+      : `Target stint pace achieved on "${cleanName}". Car balance feels stable.`,
+    isHighStress
+      ? `Rear tires are overheating! Rear end is sliding under heavy braking!`
+      : `Copy pit wall. Sector 2 pace is green, pushing into Sector 3.`,
+    isHighStress
+      ? `Soft brake pedal feel into Turn 10! Need more front wing flap!`
+      : `Understood. Stint target pace confirmed. Gap behind is four point two.`,
+    isHighStress
+      ? `Understood, boxing this lap! Car is struggling with traction out of low speed corners!`
+      : `Copy pit wall. Maintaining delta. Tires holding up well.`
+  ];
+
+  for (let i = 0; i < numTurns; i++) {
+    const isEngineer = i % 2 === 0;
+    const start = Math.round((i * duration) / numTurns);
+    const end = Math.round(((i + 1) * duration) / numTurns);
+    const textIndex = Math.floor(i / 2);
+    
+    const text = isEngineer
+      ? (engineerPhrases[textIndex % engineerPhrases.length])
+      : (driverPhrases[textIndex % driverPhrases.length]);
+
+    const segStress = isEngineer ? 32 : (isHighStress ? Math.max(68, stressScore - (i * 2)) : 42);
+    const urgency = isEngineer ? 'LOW' : (isHighStress ? (i === 1 ? 'CRITICAL' : 'HIGH') : 'MEDIUM');
+    const keywords = isEngineer
+      ? ['STT telemetry', 'sector split', 'box box', 'strat 3', 'brake bias']
+      : (isHighStress ? ['front grip', 'overheating', 'brake pedal', 'override', 'traction'] : ['target pace', 'balance stable', 'sector 2', 'maintaining delta']);
+
+    turns.push({
+      id: String(i + 1),
+      startTime: start,
+      endTime: end,
+      speaker: isEngineer ? engName : drvName,
+      text,
+      phraseStressScore: segStress,
+      urgencyLevel: urgency,
+      keywordsDetected: keywords,
+    });
+  }
+
+  return turns;
 }
 
 /**

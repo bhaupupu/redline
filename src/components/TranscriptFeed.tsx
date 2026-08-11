@@ -4,9 +4,10 @@ import { Radio, AlertTriangle, MessageSquareOff, UserCheck, ShieldAlert } from '
 
 interface TranscriptFeedProps {
   segments: TranscriptSegment[];
+  currentTime?: number;
 }
 
-export const TranscriptFeed: React.FC<TranscriptFeedProps> = ({ segments }) => {
+export const TranscriptFeed: React.FC<TranscriptFeedProps> = ({ segments, currentTime }) => {
   if (!segments || segments.length === 0) {
     return (
       <div className="transcript-feed-card">
@@ -49,9 +50,19 @@ export const TranscriptFeed: React.FC<TranscriptFeedProps> = ({ segments }) => {
           else if (seg.urgencyLevel === 'MEDIUM') badgeClass = 'urgency-medium';
 
           const isEngineer = seg.speaker.includes('Race Engineer') || seg.speaker.includes('PIT WALL');
+          const isActive = currentTime !== undefined && currentTime >= seg.startTime && currentTime <= seg.endTime;
 
           return (
-            <div key={seg.id} className={`transcript-item ${badgeClass}`}>
+            <div 
+              key={seg.id} 
+              className={`transcript-item ${badgeClass}`}
+              style={{
+                transition: 'all 0.3s ease',
+                borderLeft: isActive ? '4px solid #e20613' : undefined,
+                background: isActive ? 'rgba(226, 6, 19, 0.18)' : undefined,
+                boxShadow: isActive ? '0 0 15px rgba(226, 6, 19, 0.3)' : undefined,
+              }}
+            >
               <div className="item-header" style={{ flexWrap: 'wrap', gap: '8px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   {isEngineer ? (
@@ -76,6 +87,22 @@ export const TranscriptFeed: React.FC<TranscriptFeedProps> = ({ segments }) => {
                   >
                     {isEngineer ? 'PIT WALL ENGINEER' : 'COCKPIT DRIVER'}
                   </span>
+                  {isActive && (
+                    <span
+                      style={{
+                        background: '#e20613',
+                        color: '#fff',
+                        padding: '1px 6px',
+                        borderRadius: '3px',
+                        fontSize: '0.64rem',
+                        fontWeight: 900,
+                        letterSpacing: '0.06em',
+                        animation: 'pulse 1.2s infinite',
+                      }}
+                    >
+                      LIVE SPEAKING
+                    </span>
+                  )}
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>

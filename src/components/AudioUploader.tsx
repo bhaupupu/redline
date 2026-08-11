@@ -7,6 +7,7 @@ interface AudioUploaderProps {
   selectedDriver: Driver;
   onFileUpload: (file: File) => void;
   onSelectDatasetSample?: (sample: RadioDatasetPreset) => void;
+  onPlaybackTimeUpdate?: (time: number) => void;
   isProcessing: boolean;
   activeFileName: string;
   audioUrl?: string | null;
@@ -15,6 +16,7 @@ interface AudioUploaderProps {
 export const AudioUploader: React.FC<AudioUploaderProps> = ({
   onFileUpload,
   onSelectDatasetSample,
+  onPlaybackTimeUpdate,
   isProcessing,
   activeFileName,
   audioUrl,
@@ -107,7 +109,12 @@ export const AudioUploader: React.FC<AudioUploaderProps> = ({
             </div>
           </div>
 
-          <audio controls src={audioUrl} style={{ height: '36px', outline: 'none', borderRadius: '4px' }} />
+          <audio 
+            controls 
+            src={audioUrl} 
+            onTimeUpdate={(e) => onPlaybackTimeUpdate?.(e.currentTarget.currentTime)}
+            style={{ height: '36px', outline: 'none', borderRadius: '4px' }} 
+          />
         </div>
       )}
 

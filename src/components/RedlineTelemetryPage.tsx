@@ -57,6 +57,7 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
   const [activeFileName, setActiveFileName] = useState(initialRecord?.audioFileName || '');
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [playbackTime, setPlaybackTime] = useState<number>(0);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult>(
     initialRecord || sampleRadioClips[0].analysis
   );
@@ -186,6 +187,7 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
           selectedDriver={selectedDriver}
           onFileUpload={handleFileUpload}
           onSelectDatasetSample={handleSelectDatasetSample}
+          onPlaybackTimeUpdate={setPlaybackTime}
           isProcessing={isProcessing}
           activeFileName={activeFileName}
           audioUrl={audioUrl}
@@ -222,7 +224,10 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
         </div>
 
         {/* Full-Width Interactive Radio Transcript Feed */}
-        <TranscriptFeed segments={analysisResult.transcriptSegments} />
+        <TranscriptFeed 
+          segments={analysisResult.transcriptSegments} 
+          currentTime={playbackTime}
+        />
       </main>
 
       {/* Footer Bar */}
