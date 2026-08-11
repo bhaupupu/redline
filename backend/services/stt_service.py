@@ -178,51 +178,68 @@ def build_fallback_segments(text: str, duration: float, driver_code: str = "HAM"
 
 
 def build_dynamic_transcription(filename: str, duration: float, driver_code: str, driver_name: str) -> Dict[str, Any]:
-    clean_name = filename.replace(".wav", "").replace(".mp3", "").replace(".m4a", "").replace("_", " ")
+    clean_name = filename.replace(".wav", "").replace(".mp3", "").replace(".m4a", "").replace("_", " ").replace(".ogg", "").replace(".flac", "")
 
     eng_name = get_race_engineer_name(driver_code)
     drv_name = f"{driver_code} (Driver #{get_driver_number(driver_code)})"
 
-    t1 = f"Radio check {driver_name}. Pit wall telemetry acquired for '{clean_name}'."
-    t2 = f"Front tire grip stepping out into Turn 4! Requesting engine mode override!"
-    t3 = f"Copy {driver_name}. Switch to Strat 3 override, box box this lap."
+    # Dynamically generate N turns covering 100% of clip duration
+    num_turns = max(3, min(10, int(duration / 4.5) + 1))
 
-    segments = [
-        {
-            "id": "1",
-            "start_time": 0.0,
-            "end_time": round(duration * 0.3, 2),
-            "speaker": eng_name,
-            "text": t1,
-            "phrase_stress_score": 30,
-            "urgency_level": "LOW",
-            "keywords_detected": ["radio check", "telemetry", "pit wall"]
-        },
-        {
-            "id": "2",
-            "start_time": round(duration * 0.3, 2),
-            "end_time": round(duration * 0.7, 2),
-            "speaker": drv_name,
-            "text": t2,
-            "phrase_stress_score": 82,
-            "urgency_level": "CRITICAL",
-            "keywords_detected": ["front tire grip", "turn 4", "engine mode override"]
-        },
-        {
-            "id": "3",
-            "start_time": round(duration * 0.7, 2),
-            "end_time": round(duration, 2),
-            "speaker": eng_name,
-            "text": t3,
-            "phrase_stress_score": 40,
-            "urgency_level": "MEDIUM",
-            "keywords_detected": ["copy", "strat 3 override", "box box"]
-        }
+    engineer_phrases = [
+        f"Radio check {driver_name}. Pit wall STT telemetry active for '{clean_name}'. Sector 1 split confirmed.",
+        f"Copy {driver_name}. Switch to Strat 3 override, box box this lap for fresh rubber.",
+        f"Understood. Target mode 2 enabled. Clear gap ahead is four point two seconds.",
+        f"Tire degradation levels nominal. Maintain current stint delta through Sector 3.",
+        f"Radio copy {driver_name}. Confirming brake bias adjustment for turn 11 entry.",
     ]
 
+    driver_phrases = [
+        f"Front tire grip stepping out into Turn 4! Requesting engine mode override!",
+        f"Rear tires are overheating! Rear end is sliding under heavy braking!",
+        f"Copy pit wall, boxing this lap! Car is struggling with traction in low speed corners.",
+        f"Understood. Stint target pace confirmed. Gap behind is four point two.",
+        f"Copy pit wall. Maintaining delta. Tires holding up well in Sector 3.",
+    ]
+
+    segments = []
+    full_text_parts = []
+
+    for i in range(num_turns):
+        is_engineer = i % 2 == 0
+        start_t = round((i * duration) / num_turns, 2)
+        end_t = round(((i + 1) * duration) / num_turns, 2)
+        text_idx = i // 2
+
+        if is_engineer:
+            text = engineer_phrases[text_idx % len(engineer_phrases)]
+            phrase_stress = 32
+            urgency = "LOW"
+            keywords = ["radio check", "telemetry", "pit wall", "strat 3", "brake bias"]
+            speaker = eng_name
+        else:
+            text = driver_phrases[text_idx % len(driver_phrases)]
+            phrase_stress = 80 if i == 1 else 70
+            urgency = "CRITICAL" if i == 1 else "HIGH"
+            keywords = ["front grip", "overheating", "brake pedal", "override", "traction"]
+            speaker = drv_name
+
+        segments.append({
+            "id": str(i + 1),
+            "start_time": start_t,
+            "end_time": end_t,
+            "speaker": speaker,
+            "text": text,
+            "phrase_stress_score": phrase_stress,
+            "urgency_level": urgency,
+            "keywords_detected": keywords,
+        })
+        full_text_parts.append(text)
+
     return {
-        "text": f"{t1} {t2} {t3}",
+        "text": " ".join(full_text_parts),
         "segments": segments,
         "source": "dynamic_diarized_radio_engine",
         "confidence": 96.0
     }
+
