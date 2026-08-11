@@ -1,0 +1,348 @@
+/* Preloader Overlay Container */
+.preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background-color: #0d0d0f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s ease;
+  user-select: none;
+}
+
+/* Smooth Fade Out State */
+.preloader-overlay.preloader-fade-out {
+  opacity: 0;
+  filter: blur(16px) scale(1.05);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Background Texture Vignette */
+.preloader-bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(20, 20, 25, 0.5) 0%, rgba(8, 8, 10, 0.95) 100%);
+  pointer-events: none;
+}
+
+/* Large Ambient Glow Aura (Matches SS 2, 3, 4) */
+.ambient-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+}
+
+.ambient-aura.aura-red {
+  opacity: 1;
+  background: radial-gradient(circle at center, rgba(226, 6, 19, 0.38) 0%, rgba(180, 10, 20, 0.14) 45%, transparent 72%);
+}
+
+.ambient-aura.aura-green {
+  opacity: 1;
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle at center, rgba(0, 255, 102, 0.42) 0%, rgba(0, 200, 80, 0.16) 50%, transparent 75%);
+  animation: greenPulseAura 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes greenPulseAura {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
+
+/* Dynamic Aura Position tracking separated lit circles precisely */
+.ambient-aura.aura-active-1 {
+  transform: translate(calc(-50% - 144px), -50%) scale(0.9);
+}
+
+.ambient-aura.aura-active-2 {
+  transform: translate(calc(-50% - 72px), -50%) scale(0.93);
+}
+
+.ambient-aura.aura-active-3 {
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+.ambient-aura.aura-active-4 {
+  transform: translate(calc(-50% + 72px), -50%) scale(1);
+}
+
+.ambient-aura.aura-active-5 {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Center Content Stack */
+.preloader-center-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* 5-Ring Start Lights Container with subtle gap */
+.rings-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Individual Ring Element (Separated with gap) */
+.ring-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ring-wrapper:first-child {
+  margin-left: 0;
+}
+
+/* Unlit Ring State (Matches SS 1) */
+.ring-wrapper.ring-unlit .ring-outer-border {
+  border: 2px solid rgba(226, 6, 19, 0.7);
+  background-color: transparent;
+  box-shadow: 0 0 6px rgba(226, 6, 19, 0.2);
+}
+
+.ring-wrapper.ring-unlit .ring-inner-circle {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+/* Lit Red Ring State (Matches SS 2, 3, 4) */
+.ring-wrapper.ring-lit.ring-red {
+  transform: scale(1.05);
+}
+
+.ring-wrapper.ring-lit.ring-red .ring-outer-border {
+  border: 2px solid #ff3b45;
+  box-shadow: 0 0 16px rgba(255, 30, 45, 0.8), inset 0 0 8px rgba(255, 30, 45, 0.4);
+}
+
+.ring-wrapper.ring-lit.ring-red .ring-inner-circle {
+  opacity: 1;
+  transform: scale(1);
+  background-color: #ff1825;
+  box-shadow: 0 0 24px #ff1825, 0 0 45px rgba(255, 24, 37, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Lit Green Ring State (GO!) */
+.ring-wrapper.ring-lit.ring-green {
+  transform: scale(1.1);
+  animation: popGreen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popGreen {
+  0% { transform: scale(0.9); }
+  60% { transform: scale(1.18); }
+  100% { transform: scale(1.1); }
+}
+
+.ring-wrapper.ring-lit.ring-green .ring-outer-border {
+  border: 2px solid #00ff66;
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.9), inset 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+.ring-wrapper.ring-lit.ring-green .ring-inner-circle {
+  opacity: 1;
+  transform: scale(1);
+  background-color: #00ff66;
+  box-shadow: 0 0 32px #00ff66, 0 0 60px rgba(0, 255, 102, 0.85), inset 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+/* Outer Border Shell */
+.ring-outer-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+/* Inner Solid Filled Circle */
+.ring-inner-circle {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Pulse Wave Animation on Light Activation */
+.ring-pulse-wave {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  opacity: 0;
+  animation: ringRipple 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+.ring-red .ring-pulse-wave {
+  color: rgba(255, 30, 45, 0.8);
+}
+
+.ring-green .ring-pulse-wave {
+  color: rgba(0, 255, 102, 0.9);
+}
+
+@keyframes ringRipple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Telemetry Information Box Below */
+.telemetry-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 320px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.status-dot.dot-dim {
+  background-color: #444;
+}
+
+.status-dot.dot-red {
+  background-color: #ff1825;
+  box-shadow: 0 0 8px #ff1825;
+}
+
+.status-dot.dot-green {
+  background-color: #00ff66;
+  box-shadow: 0 0 10px #00ff66;
+  animation: dotFlash 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes dotFlash {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.status-text {
+  font-family: var(--font-sub, 'Space Grotesk', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #d1d1d1;
+  text-transform: uppercase;
+}
+
+/* Progress Track Bar */
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #e20613, #ff3b45);
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  box-shadow: 0 0 10px rgba(226, 6, 19, 0.8);
+}
+
+.progress-bar.bar-green {
+  background: linear-gradient(90deg, #00e65c, #00ff66);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.9);
+}
+
+/* Telemetry Footer Meta */
+.telemetry-meta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-sub, 'Space Grotesk', sans-serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: #777;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.meta-percent {
+  color: #aaa;
+  font-weight: 700;
+}
+
+.state-green .meta-percent {
+  color: #00ff66;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .ring-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  .rings-container {
+    gap: 12px;
+  }
+  .ambient-aura {
+    width: 280px;
+    height: 280px;
+  }
+  .ambient-aura.aura-active-1 {
+    transform: translate(calc(-50% - 93px), -50%) scale(0.9);
+  }
+  .ambient-aura.aura-active-2 {
+    transform: translate(calc(-50% - 62px), -50%) scale(0.95);
+  }
+  .ambient-aura.aura-active-3 {
+    transform: translate(calc(-50% - 31px), -50%) scale(1);
+  }
+}

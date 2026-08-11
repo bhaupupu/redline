@@ -1,0 +1,10 @@
+.git
+.gitignore
+node_modules
+__pycache__
+*.pyc
+*.pyo
+.env
+.env.example
+TASK.md
+README.md
