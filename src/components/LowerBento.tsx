@@ -65,26 +65,27 @@ export const LowerBento: React.FC<LowerBentoProps> = ({
           <div className="clock-val">{timeStr.time}</div>
         </div>
 
-        <div>
-          <div className="gp-title heading-sub">
-            UPCOMING FORMULA 1® RACE<br />
-            <span style={{ color: 'var(--audi-red)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <Activity size={14} /> LIVE TELEMETRY ACTIVE
-            </span>
+        <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div>
+            <div style={{ fontSize: '0.68rem', color: '#888', fontWeight: 800, letterSpacing: '0.08em', marginBottom: '4px' }}>
+              UPCOMING FORMULA 1® RACE
+            </div>
+            <div style={{ fontSize: '1.3rem', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              DUTCH GRAND PRIX
+              <span style={{ fontSize: '0.65rem', background: '#e20613', color: '#fff', padding: '2px 7px', borderRadius: '4px', fontWeight: 800 }}>
+                DUTCH GP
+              </span>
+            </div>
           </div>
 
-          <div className="heritage-list">
-            <div className="heritage-item">
-              <span className="square-bullet" />
-              <span>MULTIMODAL AI DRIVER RADIO DISSECTION</span>
+          <div style={{ background: 'rgba(255, 255, 255, 0.04)', borderRadius: '8px', padding: '12px 14px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ fontSize: '0.74rem', color: '#888', fontWeight: 700 }}>RACE DATE</span>
+              <span style={{ fontSize: '0.82rem', color: '#36b37e', fontWeight: 800 }}>Sun, 23 Aug • 6:30 PM IST</span>
             </div>
-            <div className="heritage-item">
-              <span className="square-bullet" />
-              <span>HIGH-FREQUENCY ACOUSTIC DSP STRESS ENGINE</span>
-            </div>
-            <div className="heritage-item">
-              <span className="square-bullet" />
-              <span>AUTOMATED PIT WALL TACTICAL RECOMMENDATIONS</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.74rem', color: '#888', fontWeight: 700 }}>TRACK / CIRCUIT</span>
+              <span style={{ fontSize: '0.82rem', color: '#fff', fontWeight: 800 }}>Circuit Zandvoort</span>
             </div>
           </div>
         </div>
