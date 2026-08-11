@@ -5,19 +5,19 @@ export const InfoSection: React.FC = () => {
     <section className="narrative-banner">
       <div>
         <h2 className="heading-extended narrative-headline">
-          DON'T MISS A MOMENT.
+          REAL-TIME TELEMETRY INTELLIGENCE.
         </h2>
         <p className="narrative-sub">
-          Your seat to the next chapter for Audi F1®.
+          AI Multimodal Driver Radio & Tactical Engine.
         </p>
       </div>
 
       <div className="narrative-text-box">
         <p>
-          The Audi Trackside Suite will return for the <strong>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2027</strong>, following a highly anticipated debut season in Melbourne.
+          REDLINE processes live driver team radio communications for the <strong>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX</strong>, delivering high-frequency acoustic DSP stress analysis and speech classification directly to the pit wall.
         </p>
         <p>
-          The Audi Trackside Suite offers the ultimate F1® experience with a premium trackside view to experience Formula 1® from lights out to the final lap.
+          Engineered for high-intensity race environments, REDLINE correlates acoustic stress markers, volume acceleration, and phrase keyword urgency to empower race engineers with automated tactical recommendations from lights out to the final lap.
         </p>
       </div>
     </section>

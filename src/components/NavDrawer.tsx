@@ -97,36 +97,39 @@ export const NavDrawer: React.FC<NavDrawerProps> = ({
             </button>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3: Telemetry System */}
           <div className={`white-nav-card ${isFalling ? 'item-falling-4' : ''}`}>
             <div>
-              <div className="nav-card-title">Audi Australia</div>
-              <div className="nav-card-sub">See the latest Audi models</div>
+              <div className="nav-card-title">Telemetry System</div>
+              <div className="nav-card-sub">Real-time radio audio DSP</div>
             </div>
-            <a 
-              href="https://www.audi.com.au" 
-              target="_blank" 
-              rel="noreferrer" 
+            <button 
               className="nav-card-btn"
+              onClick={() => {
+                onClose();
+                onOpenTicketModal();
+              }}
             >
-              <ExternalLink size={16} color="#ffffff" />
-            </a>
+              <Database size={16} color="#ffffff" />
+            </button>
           </div>
 
-          {/* Card 4 */}
+          {/* Card 4: Pit Wall Strategy */}
           <div className={`white-nav-card ${isFalling ? 'item-falling-5' : ''}`}>
             <div>
-              <div className="nav-card-title">Audi F1®</div>
-              <div className="nav-card-sub">The journey</div>
+              <div className="nav-card-title">Pit Wall Strategy</div>
+              <div className="nav-card-sub">Automated AI recommendations</div>
             </div>
-            <a 
-              href="https://www.audif1.com" 
-              target="_blank" 
-              rel="noreferrer" 
+            <button 
               className="nav-card-btn"
+              onClick={() => {
+                onClose();
+                if (onGoToHowItWorks) onGoToHowItWorks();
+                else onOpenTicketModal();
+              }}
             >
-              <ExternalLink size={16} color="#ffffff" />
-            </a>
+              <HelpCircle size={16} color="#ffffff" />
+            </button>
           </div>
         </div>
 

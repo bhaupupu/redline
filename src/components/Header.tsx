@@ -1,4 +1,5 @@
 import React from 'react';
+import { RedlineLogo } from './RedlineLogo';
 
 interface HeaderProps {
   isOpen?: boolean;
@@ -9,21 +10,7 @@ export const Header: React.FC<HeaderProps> = ({ isOpen = false, onToggleMenu }) 
   return (
     <div className="header-bento-tile">
       <div className="audi-logo">
-        <svg 
-          className="audi-rings-svg" 
-          viewBox="0 0 180 50" 
-          fill="none" 
-          stroke="#ffffff" 
-          strokeWidth="3.5" 
-          style={{ height: '22px', width: 'auto', display: 'block' }}
-          aria-label="Audi 5-Rings Logo"
-        >
-          <circle cx="26" cy="25" r="17" />
-          <circle cx="57" cy="25" r="17" />
-          <circle cx="88" cy="25" r="17" />
-          <circle cx="119" cy="25" r="17" />
-          <circle cx="150" cy="25" r="17" />
-        </svg>
+        <RedlineLogo height={24} />
       </div>
 
       <button 

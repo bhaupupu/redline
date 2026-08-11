@@ -118,7 +118,10 @@ export function App() {
               <InfoSection />
 
               {/* Lower Bento Grid Section */}
-              <LowerBento />
+              <LowerBento 
+                onOpenTelemetryModal={() => handleOpenTelemetry()}
+                onOpenRecordsVault={handleOpenRecordsVault}
+              />
 
               {/* Footer Bar */}
               <Footer />

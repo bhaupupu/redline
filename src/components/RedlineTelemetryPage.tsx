@@ -152,7 +152,7 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
 
           <button className="back-landing-btn" onClick={onBackToLanding}>
             <ArrowLeft size={16} />
-            <span>BACK TO AUDI F1</span>
+            <span>BACK TO DASHBOARD</span>
           </button>
         </div>
       </div>

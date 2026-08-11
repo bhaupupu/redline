@@ -100,7 +100,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#e20613', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em', marginBottom: '12px' }}>
             <Cpu size={18} />
-            <span>THE SILENT CO-DRIVER // AUDI F1 TELEMETRY ARCHITECTURE</span>
+            <span>THE SILENT CO-DRIVER // REDLINE TELEMETRY ARCHITECTURE</span>
           </div>
 
           <h1 style={{ fontSize: '2.2rem', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: '14px', lineHeight: 1.2 }}>
@@ -108,7 +108,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
           </h1>
 
           <p style={{ fontSize: '1.02rem', color: '#ccc', maxWidth: '850px', lineHeight: 1.6, marginBottom: '24px' }}>
-            REDLINE is Audi F1’s custom multimodal telemetry intelligence platform. It analyzes live driver team radio communications to extract vocal emotion, compute real-time phrase stress scores, differentiate Cockpit Driver speech from Pit Wall Race Engineer directives, and issue automated tactical recommendations to optimize stint performance.
+            REDLINE is a custom multimodal telemetry intelligence platform. It analyzes live driver team radio communications to extract vocal emotion, compute real-time phrase stress scores, differentiate Cockpit Driver speech from Pit Wall Race Engineer directives, and issue automated tactical recommendations to optimize stint performance.
           </p>
 
           {/* Quick Stat Highlights */}

@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Database, Activity } from 'lucide-react';
 
-export const LowerBento: React.FC = () => {
+interface LowerBentoProps {
+  onOpenTelemetryModal?: () => void;
+  onOpenRecordsVault?: () => void;
+}
+
+export const LowerBento: React.FC<LowerBentoProps> = ({
+  onOpenTelemetryModal,
+  onOpenRecordsVault,
+}) => {
   const [timeStr, setTimeStr] = useState({
     date: '07 AUGUST 2026',
     time: '11:40:44 AM',
@@ -39,10 +47,10 @@ export const LowerBento: React.FC = () => {
 
   return (
     <section className="lower-bento-grid">
-      {/* Tile 1: Live Status & Heritage */}
+      {/* Tile 1: Live Status & Telemetry Highlights */}
       <div className="bento-card info-card">
         <div className="clock-header">
-          <div>NOW:</div>
+          <div>PIT WALL FEED:</div>
           <div className="clock-val">{timeStr.date}</div>
           <div className="clock-val">{timeStr.time}</div>
         </div>
@@ -50,69 +58,78 @@ export const LowerBento: React.FC = () => {
         <div>
           <div className="gp-title heading-sub">
             FORMULA 1® AUSTRALIAN GRAND PRIX<br />
-            <span style={{ color: 'var(--audi-red)' }}>COMING SOON</span>
+            <span style={{ color: 'var(--audi-red)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <Activity size={14} /> LIVE TELEMETRY ACTIVE
+            </span>
           </div>
 
           <div className="heritage-list">
             <div className="heritage-item">
               <span className="square-bullet" />
-              <span>OVER 100 YEARS OF RACING HERITAGE</span>
+              <span>MULTIMODAL AI DRIVER RADIO DISSECTION</span>
             </div>
             <div className="heritage-item">
               <span className="square-bullet" />
-              <span>PRECISION-BUILT IN GERMANY</span>
+              <span>HIGH-FREQUENCY ACOUSTIC DSP STRESS ENGINE</span>
             </div>
             <div className="heritage-item">
               <span className="square-bullet" />
-              <span>DEBUTED IN MELBOURNE</span>
+              <span>AUTOMATED PIT WALL TACTICAL RECOMMENDATIONS</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tile 2: The Latest News */}
-      <div className="bento-card latest-card">
+      {/* Tile 2: Real-time Telemetry System */}
+      <div 
+        className="bento-card latest-card"
+        style={{ cursor: 'pointer' }}
+        onClick={onOpenTelemetryModal}
+      >
         <div>
-          <span className="latest-tag">THE LATEST</span>
+          <span className="latest-tag">THE LATEST TELEMETRY</span>
           <h3 className="heading-extended latest-title">
-            Discover the latest from the Audi Revolut F1® Team
+            Discover real-time AI driver radio analysis & pit wall tactics
           </h3>
         </div>
 
         <div className="latest-footer">
-          <span className="latest-link">VISIT AUDIF1.COM</span>
-          <a 
-            href="https://www.audif1.com" 
-            target="_blank" 
-            rel="noreferrer" 
+          <span className="latest-link">LAUNCH REDLINE SYSTEM</span>
+          <button 
             className="btn-circle-red"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onOpenTelemetryModal) onOpenTelemetryModal();
+            }}
           >
-            <ExternalLink size={20} />
-          </a>
+            <ArrowUpRight size={20} />
+          </button>
         </div>
       </div>
 
-      {/* Tile 3: Audi Australia Destination */}
+      {/* Tile 3: Stint Records Vault */}
       <div 
         className="bento-card tile-card"
-        style={{ backgroundImage: `url('/assets/ontrack.png')`, minHeight: '280px' }}
+        style={{ backgroundImage: `url('/assets/ontrack.png')`, minHeight: '280px', cursor: 'pointer' }}
+        onClick={onOpenRecordsVault}
       >
         <div className="hero-overlay" />
 
         <div className="tile-top-bar">
-          <span className="tile-tag">AUDI AUSTRALIA</span>
-          <a 
-            href="https://www.audi.com.au" 
-            target="_blank" 
-            rel="noreferrer" 
+          <span className="tile-tag">STINT RECORDS VAULT</span>
+          <button 
             className="btn-circle-red"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onOpenRecordsVault) onOpenRecordsVault();
+            }}
           >
-            <ExternalLink size={20} />
-          </a>
+            <Database size={20} />
+          </button>
         </div>
 
         <h3 className="heading-extended tile-bottom-title">
-          Our Australian F1® destination
+          Explore historical Grand Prix stint telemetry & records
         </h3>
       </div>
     </section>

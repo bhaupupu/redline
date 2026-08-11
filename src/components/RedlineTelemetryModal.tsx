@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Activity } from 'lucide-react';
+import { X, Activity, RefreshCw } from 'lucide-react';
+import { RedlineLogo } from './RedlineLogo';
 import { Driver, AnalysisResult } from '../types/telemetry';
 import { DRIVERS, PRESET_ANALYSES } from '../services/sampleClips';
 import { analyzeAudioFile } from '../services/aiProcessingEngine';
@@ -58,21 +59,7 @@ export const RedlineTelemetryModal: React.FC<RedlineTelemetryModalProps> = ({ is
         <div className="telemetry-modal-header">
           <div className="header-brand-group">
             <div className="brand-logo">
-              <svg 
-                className="audi-rings-svg" 
-                viewBox="0 0 180 50" 
-                fill="none" 
-                stroke="#ffffff" 
-                strokeWidth="3.5" 
-                style={{ height: '24px', width: 'auto', display: 'block' }}
-                aria-label="Audi 5-Rings Logo"
-              >
-                <circle cx="26" cy="25" r="17" />
-                <circle cx="57" cy="25" r="17" />
-                <circle cx="88" cy="25" r="17" />
-                <circle cx="119" cy="25" r="17" />
-                <circle cx="150" cy="25" r="17" />
-              </svg>
+              <RedlineLogo height={24} />
             </div>
 
             <div className="brand-titles">

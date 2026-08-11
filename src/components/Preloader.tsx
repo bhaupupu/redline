@@ -91,7 +91,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, autoStart = tr
       {/* Ambient Large Radial Glow Aura */}
       <div className={`ambient-aura ${auraClass}`} />
 
-      {/* Centered Audi/F1 5-Ring Start Gantry */}
+      {/* Centered F1 Telemetry 5-Light Start Gantry */}
       <div className="preloader-center-content">
         <div className="rings-container">
           {[1, 2, 3, 4, 5].map((index) => {
