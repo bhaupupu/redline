@@ -16,6 +16,8 @@ import { Footer } from './Footer';
 interface RedlineTelemetryPageProps {
   onBackToLanding: () => void;
   initialRecord?: AnalysisResult | null;
+  onOpenRecordsVault?: () => void;
+  onOpenHowItWorks?: () => void;
 }
 
 const IDLE_ANALYSIS: AnalysisResult = {
@@ -44,23 +46,18 @@ const IDLE_ANALYSIS: AnalysisResult = {
 export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
   onBackToLanding,
   initialRecord,
+  onOpenRecordsVault,
+  onOpenHowItWorks,
 }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isFalling, setIsFalling] = useState(false);
-  const [selectedDriver, setSelectedDriver] = useState<Driver>(initialRecord?.driver || DRIVERS[0]);
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResult>(initialRecord || IDLE_ANALYSIS);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedDriver, setSelectedDriver] = useState<RadioDatasetPreset>(sampleRadioClips[0]);
   const [activeFileName, setActiveFileName] = useState(initialRecord?.audioFileName || '');
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
-
-  const handleToggleMenu = () => {
-    if (isNavOpen) {
-      triggerCloseWithFalling();
-    } else {
-      setIsFalling(false);
-      setIsNavOpen(true);
-    }
-  };
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult>(
+    initialRecord || sampleRadioClips[0].analysis
+  );
 
   const triggerCloseWithFalling = () => {
     if (isFalling) return;
@@ -71,8 +68,17 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
     }, 700);
   };
 
+  const handleToggleMenu = () => {
+    if (isNavOpen) {
+      triggerCloseWithFalling();
+    } else {
+      setIsFalling(false);
+      setIsNavOpen(true);
+    }
+  };
+
   const handleSelectDatasetSample = (sample: RadioDatasetPreset) => {
-    setSelectedDriver(sample.analysis.driver);
+    setSelectedDriver(sample);
     setAnalysisResult(sample.analysis);
     setActiveFileName(sample.audioFileName);
     setAudioUrl(sample.audioUrl);
@@ -81,11 +87,6 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
   const handleFileUpload = async (file: File) => {
     setIsProcessing(true);
     setActiveFileName(file.name);
-
-    // Auto-detect driver from filename if present
-    const detected = detectDriverFromFilename(file.name);
-    const targetDriver = detected || selectedDriver;
-    setSelectedDriver(targetDriver);
 
     // Create playable audio URL for HTML5 audio player
     try {
@@ -96,8 +97,12 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
     }
 
     try {
+      // Auto-detect driver from filename if present
+      const detected = detectDriverFromFilename(file.name);
+      const targetDriver = detected || selectedDriver.analysis.driver;
+      setSelectedDriver(sampleRadioClips.find(s => s.analysis.driver.id === targetDriver.id) || sampleRadioClips[0]);
+
       const result = await analyzeAudioFile(file, targetDriver.id);
-      setSelectedDriver(result.driver);
       setAnalysisResult(result);
 
       // Save to localStorage history for the dedicated F1 Telemetry Records Vault page
@@ -130,8 +135,18 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
           isOpen={isNavOpen}
           isFalling={isFalling}
           onClose={triggerCloseWithFalling}
-          onOpenTicketModal={onBackToLanding}
+          onOpenTicketModal={() => setIsNavOpen(false)}
           onGoToLandingPage={onBackToLanding}
+          onGoToRecordsVault={() => {
+            setIsNavOpen(false);
+            if (onOpenRecordsVault) onOpenRecordsVault();
+            else onBackToLanding();
+          }}
+          onGoToHowItWorks={() => {
+            setIsNavOpen(false);
+            if (onOpenHowItWorks) onOpenHowItWorks();
+            else onBackToLanding();
+          }}
         />
       </div>
 

@@ -60,74 +60,76 @@ export const NavDrawer: React.FC<NavDrawerProps> = ({
         {/* 2x2 White Cards Grid */}
         <div className="drawer-cards-grid">
           {/* Card 1: How REDLINE Works */}
-          <div className={`white-nav-card ${isFalling ? 'item-falling-2' : ''}`}>
+          <div 
+            className={`white-nav-card ${isFalling ? 'item-falling-2' : ''}`}
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              onClose();
+              if (onGoToHowItWorks) onGoToHowItWorks();
+              else onOpenTicketModal();
+            }}
+          >
             <div>
               <div className="nav-card-title" style={{ color: '#e20613' }}>How REDLINE Works</div>
               <div className="nav-card-sub">System architecture & AI guide</div>
             </div>
-            <button 
-              className="nav-card-btn"
-              style={{ background: '#e20613' }}
-              onClick={() => {
-                onClose();
-                if (onGoToHowItWorks) onGoToHowItWorks();
-                else onOpenTicketModal();
-              }}
-            >
+            <button className="nav-card-btn" style={{ background: '#e20613' }}>
               <HelpCircle size={18} color="#ffffff" />
             </button>
           </div>
 
           {/* Card 2: Dedicated Records Vault */}
-          <div className={`white-nav-card ${isFalling ? 'item-falling-3' : ''}`}>
+          <div 
+            className={`white-nav-card ${isFalling ? 'item-falling-3' : ''}`}
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              onClose();
+              if (onGoToRecordsVault) onGoToRecordsVault();
+              else onOpenTicketModal();
+            }}
+          >
             <div>
               <div className="nav-card-title" style={{ color: '#e20613' }}>Stint Records Vault</div>
               <div className="nav-card-sub">Dedicated telemetry history</div>
             </div>
-            <button 
-              className="nav-card-btn"
-              style={{ background: '#e20613' }}
-              onClick={() => {
-                onClose();
-                if (onGoToRecordsVault) onGoToRecordsVault();
-                else onOpenTicketModal();
-              }}
-            >
+            <button className="nav-card-btn" style={{ background: '#e20613' }}>
               <Database size={16} color="#ffffff" />
             </button>
           </div>
 
           {/* Card 3: Telemetry System */}
-          <div className={`white-nav-card ${isFalling ? 'item-falling-4' : ''}`}>
+          <div 
+            className={`white-nav-card ${isFalling ? 'item-falling-4' : ''}`}
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              onClose();
+              onOpenTicketModal();
+            }}
+          >
             <div>
-              <div className="nav-card-title">Telemetry System</div>
+              <div className="nav-card-title" style={{ color: '#e20613' }}>Telemetry System</div>
               <div className="nav-card-sub">Real-time radio audio DSP</div>
             </div>
-            <button 
-              className="nav-card-btn"
-              onClick={() => {
-                onClose();
-                onOpenTicketModal();
-              }}
-            >
+            <button className="nav-card-btn" style={{ background: '#e20613' }}>
               <Database size={16} color="#ffffff" />
             </button>
           </div>
 
           {/* Card 4: Pit Wall Strategy */}
-          <div className={`white-nav-card ${isFalling ? 'item-falling-5' : ''}`}>
+          <div 
+            className={`white-nav-card ${isFalling ? 'item-falling-5' : ''}`}
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              onClose();
+              if (onGoToHowItWorks) onGoToHowItWorks();
+              else onOpenTicketModal();
+            }}
+          >
             <div>
-              <div className="nav-card-title">Pit Wall Strategy</div>
+              <div className="nav-card-title" style={{ color: '#e20613' }}>Pit Wall Strategy</div>
               <div className="nav-card-sub">Automated AI recommendations</div>
             </div>
-            <button 
-              className="nav-card-btn"
-              onClick={() => {
-                onClose();
-                if (onGoToHowItWorks) onGoToHowItWorks();
-                else onOpenTicketModal();
-              }}
-            >
+            <button className="nav-card-btn" style={{ background: '#e20613' }}>
               <HelpCircle size={16} color="#ffffff" />
             </button>
           </div>

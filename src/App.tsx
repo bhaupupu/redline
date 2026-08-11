@@ -131,6 +131,8 @@ export function App() {
             <StintRecordsPage 
               onBackToLanding={handleBackToLanding}
               onOpenTelemetryForRecord={handleOpenTelemetryForRecord}
+              onOpenTelemetry={handleOpenTelemetry}
+              onOpenHowItWorks={handleOpenHowItWorks}
             />
           ) : activePage === 'how-it-works' ? (
             /* Dedicated How REDLINE Works Page */
@@ -144,6 +146,8 @@ export function App() {
             <RedlineTelemetryPage 
               onBackToLanding={handleBackToLanding} 
               initialRecord={selectedRecordForTelemetry}
+              onOpenRecordsVault={handleOpenRecordsVault}
+              onOpenHowItWorks={handleOpenHowItWorks}
             />
           )}
         </div>

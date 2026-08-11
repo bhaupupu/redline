@@ -54,6 +54,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
           onOpenTicketModal={() => onLaunchTelemetry()}
           onGoToLandingPage={onBackToLanding}
           onGoToRecordsVault={onOpenRecordsVault}
+          onGoToHowItWorks={() => setIsNavOpen(false)}
         />
       </div>
 

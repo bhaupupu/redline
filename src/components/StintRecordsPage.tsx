@@ -9,11 +9,15 @@ import { Footer } from './Footer';
 interface StintRecordsPageProps {
   onBackToLanding: () => void;
   onOpenTelemetryForRecord: (record: AnalysisResult) => void;
+  onOpenTelemetry?: () => void;
+  onOpenHowItWorks?: () => void;
 }
 
 export const StintRecordsPage: React.FC<StintRecordsPageProps> = ({
   onBackToLanding,
   onOpenTelemetryForRecord,
+  onOpenTelemetry,
+  onOpenHowItWorks,
 }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isFalling, setIsFalling] = useState(false);
@@ -102,8 +106,18 @@ export const StintRecordsPage: React.FC<StintRecordsPageProps> = ({
           isOpen={isNavOpen}
           isFalling={isFalling}
           onClose={triggerCloseWithFalling}
-          onOpenTicketModal={onBackToLanding}
+          onOpenTicketModal={() => {
+            setIsNavOpen(false);
+            if (onOpenTelemetry) onOpenTelemetry();
+            else onBackToLanding();
+          }}
           onGoToLandingPage={onBackToLanding}
+          onGoToRecordsVault={() => setIsNavOpen(false)}
+          onGoToHowItWorks={() => {
+            setIsNavOpen(false);
+            if (onGoToHowItWorks) onGoToHowItWorks();
+            else onBackToLanding();
+          }}
         />
       </div>
 
