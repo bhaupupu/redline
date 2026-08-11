@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, HelpCircle, ExternalLink, Database } from 'lucide-react';
+import { Home, HelpCircle, Database, Dna, Activity } from 'lucide-react';
 
 interface NavDrawerProps {
   isOpen: boolean;
@@ -9,6 +9,7 @@ interface NavDrawerProps {
   onGoToLandingPage?: () => void;
   onGoToRecordsVault?: () => void;
   onGoToHowItWorks?: () => void;
+  onGoToRaceDna?: () => void;
 }
 
 export const NavDrawer: React.FC<NavDrawerProps> = ({
@@ -19,6 +20,7 @@ export const NavDrawer: React.FC<NavDrawerProps> = ({
   onGoToLandingPage,
   onGoToRecordsVault,
   onGoToHowItWorks,
+  onGoToRaceDna,
 }) => {
   if (!isOpen) return null;
 
@@ -111,26 +113,27 @@ export const NavDrawer: React.FC<NavDrawerProps> = ({
               <div className="nav-card-sub">Real-time radio audio DSP</div>
             </div>
             <button className="nav-card-btn" style={{ background: '#e20613' }}>
-              <Database size={16} color="#ffffff" />
+              <Activity size={16} color="#ffffff" />
             </button>
           </div>
 
-          {/* Card 4: Pit Wall Strategy */}
+          {/* Card 4: RaceDNA™ Engine */}
           <div 
             className={`white-nav-card ${isFalling ? 'item-falling-5' : ''}`}
             style={{ cursor: 'pointer' }}
             onClick={() => {
               onClose();
-              if (onGoToHowItWorks) onGoToHowItWorks();
+              if (onGoToRaceDna) onGoToRaceDna();
+              else if (onGoToHowItWorks) onGoToHowItWorks();
               else onOpenTicketModal();
             }}
           >
             <div>
-              <div className="nav-card-title" style={{ color: '#e20613' }}>Pit Wall Strategy</div>
-              <div className="nav-card-sub">Automated AI recommendations</div>
+              <div className="nav-card-title" style={{ color: '#e20613' }}>RaceDNA™ Engine</div>
+              <div className="nav-card-sub">Driver cognitive signatures</div>
             </div>
             <button className="nav-card-btn" style={{ background: '#e20613' }}>
-              <HelpCircle size={16} color="#ffffff" />
+              <Dna size={16} color="#ffffff" />
             </button>
           </div>
         </div>

@@ -9,12 +9,14 @@ interface HowItWorksPageProps {
   onBackToLanding: () => void;
   onLaunchTelemetry: (samplePreset?: RadioDatasetPreset) => void;
   onOpenRecordsVault: () => void;
+  onOpenRaceDna?: () => void;
 }
 
 export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
   onBackToLanding,
   onLaunchTelemetry,
   onOpenRecordsVault,
+  onOpenRaceDna,
 }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isFalling, setIsFalling] = useState(false);
@@ -55,6 +57,11 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
           onGoToLandingPage={onBackToLanding}
           onGoToRecordsVault={onOpenRecordsVault}
           onGoToHowItWorks={() => setIsNavOpen(false)}
+          onGoToRaceDna={() => {
+            setIsNavOpen(false);
+            if (onOpenRaceDna) onOpenRaceDna();
+            else onBackToLanding();
+          }}
         />
       </div>
 

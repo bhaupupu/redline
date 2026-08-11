@@ -18,6 +18,7 @@ interface RedlineTelemetryPageProps {
   initialRecord?: AnalysisResult | null;
   onOpenRecordsVault?: () => void;
   onOpenHowItWorks?: () => void;
+  onOpenRaceDna?: () => void;
 }
 
 const IDLE_ANALYSIS: AnalysisResult = {
@@ -48,6 +49,7 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
   initialRecord,
   onOpenRecordsVault,
   onOpenHowItWorks,
+  onOpenRaceDna,
 }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isFalling, setIsFalling] = useState(false);
@@ -145,6 +147,11 @@ export const RedlineTelemetryPage: React.FC<RedlineTelemetryPageProps> = ({
           onGoToHowItWorks={() => {
             setIsNavOpen(false);
             if (onOpenHowItWorks) onOpenHowItWorks();
+            else onBackToLanding();
+          }}
+          onGoToRaceDna={() => {
+            setIsNavOpen(false);
+            if (onOpenRaceDna) onOpenRaceDna();
             else onBackToLanding();
           }}
         />

@@ -10,6 +10,7 @@ interface HeroBentoProps {
   onOpenTelemetryModal: () => void;
   onOpenRecordsVault: () => void;
   onOpenHowItWorks?: () => void;
+  onOpenRaceDna?: () => void;
 }
 
 export const HeroBento: React.FC<HeroBentoProps> = ({ 
@@ -19,6 +20,7 @@ export const HeroBento: React.FC<HeroBentoProps> = ({
   onOpenTelemetryModal,
   onOpenRecordsVault,
   onOpenHowItWorks,
+  onOpenRaceDna,
 }) => {
   const [isFalling, setIsFalling] = useState(false);
 
@@ -84,6 +86,7 @@ export const HeroBento: React.FC<HeroBentoProps> = ({
           onOpenTicketModal={onOpenTelemetryModal}
           onGoToRecordsVault={onOpenRecordsVault}
           onGoToHowItWorks={onOpenHowItWorks}
+          onGoToRaceDna={onOpenRaceDna}
         />
 
         {/* Upper Tile: How REDLINE Works */}

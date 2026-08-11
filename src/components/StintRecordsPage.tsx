@@ -11,6 +11,7 @@ interface StintRecordsPageProps {
   onOpenTelemetryForRecord: (record: AnalysisResult) => void;
   onOpenTelemetry?: () => void;
   onOpenHowItWorks?: () => void;
+  onOpenRaceDna?: () => void;
 }
 
 export const StintRecordsPage: React.FC<StintRecordsPageProps> = ({
@@ -18,6 +19,7 @@ export const StintRecordsPage: React.FC<StintRecordsPageProps> = ({
   onOpenTelemetryForRecord,
   onOpenTelemetry,
   onOpenHowItWorks,
+  onOpenRaceDna,
 }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isFalling, setIsFalling] = useState(false);
@@ -116,6 +118,11 @@ export const StintRecordsPage: React.FC<StintRecordsPageProps> = ({
           onGoToHowItWorks={() => {
             setIsNavOpen(false);
             if (onGoToHowItWorks) onGoToHowItWorks();
+            else onBackToLanding();
+          }}
+          onGoToRaceDna={() => {
+            setIsNavOpen(false);
+            if (onOpenRaceDna) onOpenRaceDna();
             else onBackToLanding();
           }}
         />

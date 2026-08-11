@@ -7,13 +7,14 @@ import { Footer } from './components/Footer';
 import { RedlineTelemetryPage } from './components/RedlineTelemetryPage';
 import { StintRecordsPage } from './components/StintRecordsPage';
 import { HowItWorksPage } from './components/HowItWorksPage';
+import { RaceDNAPage } from './components/RaceDNAPage';
 import { AnalysisResult } from './types/telemetry';
 import { RadioDatasetPreset } from './services/sampleClips';
 
 export function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [activePage, setActivePage] = useState<'landing' | 'telemetry' | 'records' | 'how-it-works'>('landing');
+  const [activePage, setActivePage] = useState<'landing' | 'telemetry' | 'records' | 'how-it-works' | 'racedna'>('landing');
   const [selectedRecordForTelemetry, setSelectedRecordForTelemetry] = useState<AnalysisResult | null>(null);
   const [isFading, setIsFading] = useState(false);
 
@@ -68,6 +69,20 @@ export function App() {
     }, 280);
   };
 
+  const handleOpenRaceDna = () => {
+    if (isFading) return;
+    setIsNavOpen(false);
+    setIsFading(true);
+
+    setTimeout(() => {
+      setActivePage('racedna');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      setTimeout(() => {
+        setIsFading(false);
+      }, 50);
+    }, 280);
+  };
+
   const handleOpenTelemetryForRecord = (record: AnalysisResult) => {
     if (isFading) return;
     setSelectedRecordForTelemetry(record);
@@ -112,6 +127,7 @@ export function App() {
                 onOpenTelemetryModal={() => handleOpenTelemetry()}
                 onOpenRecordsVault={handleOpenRecordsVault}
                 onOpenHowItWorks={handleOpenHowItWorks}
+                onOpenRaceDna={handleOpenRaceDna}
               />
 
               {/* Narrative Info Banner Section */}
@@ -121,6 +137,7 @@ export function App() {
               <LowerBento 
                 onOpenTelemetryModal={() => handleOpenTelemetry()}
                 onOpenRecordsVault={handleOpenRecordsVault}
+                onOpenRaceDna={handleOpenRaceDna}
               />
 
               {/* Footer Bar */}
@@ -133,6 +150,7 @@ export function App() {
               onOpenTelemetryForRecord={handleOpenTelemetryForRecord}
               onOpenTelemetry={handleOpenTelemetry}
               onOpenHowItWorks={handleOpenHowItWorks}
+              onOpenRaceDna={handleOpenRaceDna}
             />
           ) : activePage === 'how-it-works' ? (
             /* Dedicated How REDLINE Works Page */
@@ -140,6 +158,15 @@ export function App() {
               onBackToLanding={handleBackToLanding}
               onLaunchTelemetry={handleOpenTelemetry}
               onOpenRecordsVault={handleOpenRecordsVault}
+              onOpenRaceDna={handleOpenRaceDna}
+            />
+          ) : activePage === 'racedna' ? (
+            /* Dedicated RaceDNA Engine Page */
+            <RaceDNAPage
+              onBackToLanding={handleBackToLanding}
+              onOpenTelemetry={handleOpenTelemetry}
+              onOpenRecordsVault={handleOpenRecordsVault}
+              onOpenHowItWorks={handleOpenHowItWorks}
             />
           ) : (
             /* Dedicated REDLINE Telemetry System Full Page */
@@ -148,6 +175,7 @@ export function App() {
               initialRecord={selectedRecordForTelemetry}
               onOpenRecordsVault={handleOpenRecordsVault}
               onOpenHowItWorks={handleOpenHowItWorks}
+              onOpenRaceDna={handleOpenRaceDna}
             />
           )}
         </div>
