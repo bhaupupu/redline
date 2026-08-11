@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Database, HelpCircle } from 'lucide-react';
+import { ArrowUpRight, Database, HelpCircle, Dna } from 'lucide-react';
 import { Header } from './Header';
 import { NavDrawer } from './NavDrawer';
 
@@ -72,7 +72,7 @@ export const HeroBento: React.FC<HeroBentoProps> = ({
 
       {/* Right Column with Header Box + Inline Expanding Nav Panel */}
       <div className="bento-column" style={{ position: 'relative' }}>
-        {/* Top Header Tile (Audi 5-Rings + Hamburger / X Toggle Button) */}
+        {/* Top Header Tile */}
         <Header 
           isOpen={isNavOpen} 
           onToggleMenu={handleToggleMenu} 
@@ -117,30 +117,57 @@ export const HeroBento: React.FC<HeroBentoProps> = ({
           </h2>
         </div>
 
-        {/* Lower Tile: Dedicated Telemetry Records Vault Page */}
+        {/* Lower Tile: RaceDNA™ Engine */}
         <div 
-          className="bento-card tile-card"
+          className="bento-card tile-card racedna-tile"
           style={{ 
             backgroundImage: `url('/assets/melbourne.png')`,
             border: '1px solid rgba(226, 6, 19, 0.4)',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden',
           }}
-          onClick={onOpenRecordsVault}
+          onClick={() => {
+            if (onOpenRaceDna) onOpenRaceDna();
+            else onOpenRecordsVault();
+          }}
         >
-          <div className="hero-overlay" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(226,6,19,0.35) 100%)' }} />
+          <div className="hero-overlay" style={{ background: 'linear-gradient(135deg, rgba(8,8,8,0.85) 0%, rgba(226,6,19,0.3) 100%)' }} />
 
-          <div className="tile-top-bar">
-            <span className="tile-tag" style={{ background: '#e20613', color: '#fff', fontWeight: 800 }}>
-              DEDICATED STINT RECORDS PAGE
+          {/* Futuristic RaceDNA Radar/Fingerprint Overlay */}
+          <div className="racedna-viz-container" style={{ position: 'absolute', right: '-15px', bottom: '-15px', opacity: 0.45, zIndex: 2, pointerEvents: 'none' }}>
+            <svg className="racedna-svg-radar" viewBox="0 0 160 160" width="160" height="160" fill="none">
+              <circle cx="80" cy="80" r="70" stroke="#e20613" strokeWidth="1" strokeDasharray="4 4" />
+              <circle cx="80" cy="80" r="50" stroke="#ffffff" strokeWidth="1" opacity="0.4" />
+              <circle cx="80" cy="80" r="30" stroke="#e20613" strokeWidth="1.5" opacity="0.6" />
+              <polygon points="80,25 125,60 110,125 50,125 35,60" stroke="#e20613" strokeWidth="2" fill="rgba(226, 6, 19, 0.25)" />
+            </svg>
+          </div>
+
+          <div className="tile-top-bar" style={{ position: 'relative', zIndex: 3 }}>
+            <span className="tile-tag" style={{ background: '#e20613', color: '#fff', fontWeight: 800, letterSpacing: '0.08em', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <Dna size={13} /> RACEDNA™ ENGINE
             </span>
-            <button className="btn-circle-red" onClick={onOpenRecordsVault}>
-              <Database size={20} />
+            <button 
+              className="btn-circle-red" 
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onOpenRaceDna) onOpenRaceDna();
+                else onOpenRecordsVault();
+              }}
+            >
+              <ArrowUpRight size={20} />
             </button>
           </div>
 
-          <h2 className="heading-extended tile-bottom-title" style={{ color: '#fff' }}>
-            F1 Telemetry Records Vault
-          </h2>
+          <div style={{ position: 'relative', zIndex: 3, marginTop: 'auto', paddingTop: '12px' }}>
+            <h2 className="heading-extended tile-bottom-title" style={{ color: '#fff', fontSize: '1.3rem', lineHeight: 1.15, marginBottom: '6px' }}>
+              EVERY DRIVER HAS A DIFFERENT REDLINE.
+            </h2>
+            <p style={{ fontSize: '0.78rem', color: '#ccc', lineHeight: 1.35, margin: 0 }}>
+              Build a live cognitive signature from driver communication and race performance.
+            </p>
+          </div>
         </div>
       </div>
     </section>

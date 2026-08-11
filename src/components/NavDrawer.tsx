@@ -80,22 +80,23 @@ export const NavDrawer: React.FC<NavDrawerProps> = ({
             </button>
           </div>
 
-          {/* Card 2: Dedicated Records Vault */}
+          {/* Card 2: RaceDNA™ Engine */}
           <div 
             className={`white-nav-card ${isFalling ? 'item-falling-3' : ''}`}
             style={{ cursor: 'pointer' }}
             onClick={() => {
               onClose();
-              if (onGoToRecordsVault) onGoToRecordsVault();
+              if (onGoToRaceDna) onGoToRaceDna();
+              else if (onGoToHowItWorks) onGoToHowItWorks();
               else onOpenTicketModal();
             }}
           >
             <div>
-              <div className="nav-card-title" style={{ color: '#e20613' }}>Stint Records Vault</div>
-              <div className="nav-card-sub">Dedicated telemetry history</div>
+              <div className="nav-card-title" style={{ color: '#e20613' }}>RaceDNA™ Engine</div>
+              <div className="nav-card-sub">Driver cognitive signatures</div>
             </div>
             <button className="nav-card-btn" style={{ background: '#e20613' }}>
-              <Database size={16} color="#ffffff" />
+              <Dna size={16} color="#ffffff" />
             </button>
           </div>
 
@@ -117,23 +118,22 @@ export const NavDrawer: React.FC<NavDrawerProps> = ({
             </button>
           </div>
 
-          {/* Card 4: RaceDNA™ Engine */}
+          {/* Card 4: Dedicated Records Vault */}
           <div 
             className={`white-nav-card ${isFalling ? 'item-falling-5' : ''}`}
             style={{ cursor: 'pointer' }}
             onClick={() => {
               onClose();
-              if (onGoToRaceDna) onGoToRaceDna();
-              else if (onGoToHowItWorks) onGoToHowItWorks();
+              if (onGoToRecordsVault) onGoToRecordsVault();
               else onOpenTicketModal();
             }}
           >
             <div>
-              <div className="nav-card-title" style={{ color: '#e20613' }}>RaceDNA™ Engine</div>
-              <div className="nav-card-sub">Driver cognitive signatures</div>
+              <div className="nav-card-title" style={{ color: '#e20613' }}>Stint Records Vault</div>
+              <div className="nav-card-sub">Dedicated telemetry history</div>
             </div>
             <button className="nav-card-btn" style={{ background: '#e20613' }}>
-              <Dna size={16} color="#ffffff" />
+              <Database size={16} color="#ffffff" />
             </button>
           </div>
         </div>
