@@ -53,10 +53,10 @@ export const HeroBento: React.FC<HeroBentoProps> = ({
 
         <div className="hero-content-top">
           <div className="hero-badge">
-            FORMULA 1® AUSTRALIAN GRAND PRIX 2026
+            FORMULA 1® TEAM RADIO TELEMETRY
           </div>
           <h1 className="heading-extended hero-title">
-            ALBERT PARK WAS OUR FIRST CHAPTER.
+            REAL-TIME ACOUSTIC STRESS ANALYSIS FOR F1 DRIVERS.
           </h1>
         </div>
 
