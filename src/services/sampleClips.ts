@@ -352,3 +352,5 @@ export const PRESET_ANALYSES: Record<string, AnalysisResult> = {
   norris: SAMPLE_RADIO_DATASET_PRESETS[3].analysis,
   sainz: SAMPLE_RADIO_DATASET_PRESETS[2].analysis,
 };
+
+export const sampleRadioClips = SAMPLE_RADIO_DATASET_PRESETS;

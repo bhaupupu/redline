@@ -3,7 +3,7 @@ import { ArrowLeft, Activity } from 'lucide-react';
 import { Header } from './Header';
 import { NavDrawer } from './NavDrawer';
 import { Driver, AnalysisResult } from '../types/telemetry';
-import { DRIVERS, RadioDatasetPreset } from '../services/sampleClips';
+import { DRIVERS, RadioDatasetPreset, sampleRadioClips } from '../services/sampleClips';
 import { analyzeAudioFile, detectDriverFromFilename } from '../services/aiProcessingEngine';
 import { AudioUploader } from './AudioUploader';
 import { StressGauge } from './StressGauge';
